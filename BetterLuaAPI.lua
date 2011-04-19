@@ -67,15 +67,33 @@ function drawSquare(x,y,l)
 	platform.gc():drawPolyLine({(x-l/2),(y-l/2), (x+l/2),(y-l/2), (x+l/2),(y+l/2), (x-l/2),(y+l/2), (x-l/2),(y-l/2)})
 end
 
+function drawRoundRect(x,y,width,height,radius)
+	x = x-width/2  -- let the center of the square be the origin (x coord)
+	y = y-height/2 -- same for y coord
+	if radius > height/2 then radius = height/2 end -- avoid drawing cool but unexpected shapes. This will draw a circle (max radius)
+	platform.gc():drawLine(x + radius, y, x + width - (radius), y);
+    platform.gc():drawArc(x + width - (radius*2), y + height - (radius*2), radius*2, radius*2, 270, 90);
+    platform.gc():drawLine(x + width, y + radius, x + width, y + height - (radius));
+    platform.gc():drawArc(x + width - (radius*2), y, radius*2, radius*2,0,90);
+    platform.gc():drawLine(x + width - (radius), y + height, x + radius, y + height);
+    platform.gc():drawArc(x, y, radius*2, radius*2, 90, 90);
+    platform.gc():drawLine(x, y + height - (radius), x, y + radius);
+    platform.gc():drawArc(x, y + height - (radius*2), radius*2, radius*2, 180, 90);
+end
+
+function drawLinearGradient(r1,g1,b1,r2,g2,b2)
+ 	-- not sure if it's a good idea
+end
+
 function on.paint(gc)
 
 	setColor("red")
 	drawPoint(50,50)
 	drawCircle(50,50,20)
-	drawSquare(200,120,30)
-	drawCenteredString("hello world")
-	drawCenteredString("\n  Adriweb here \\o/")
-	--drawRoundRect(x,y,w,h,r)
+	drawSquare(100,120,30)
+	--drawCenteredString("hello world")
+	--drawCenteredString("\n  Adriweb here \\o/")
+	drawRoundRect(200,160,50,50,30)
 	verticalBar(20)
 	horizontalBar(40)
 	
