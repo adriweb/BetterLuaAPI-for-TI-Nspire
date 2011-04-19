@@ -78,7 +78,6 @@ function on.paint(gc)
 	--drawRoundRect(x,y,w,h,r)
 	verticalBar(20)
 	horizontalBar(40)
-	gc:drawPolyLine({0,0, 0,100, 100,100, 100,0, 0,0}) 
 	
 
 end
