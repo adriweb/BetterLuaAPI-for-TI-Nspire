@@ -81,27 +81,4 @@ function on.paint(gc)
 	gc:drawPolyLine({0,0, 0,100, 100,100, 100,0, 0,0}) 
 	
 
-
--- lignes http://i.imgur.com/YDcmH.jpg
---for i=1,320,5 do
---	gc:setColorRGB(math.random()*255,math.random()*255,math.random()*255)
---	gc:drawLine(i,1,320,i)
---	gc:drawLine(i,320,1,i)
---	gc:drawLine(i,1,1,320-i)
---	gc:drawLine(320-i,320,320,i)
---	gc:drawLine(2,2,320,2)
---end
-
-	
-
-	
-	
-	
---	math.eval("x:=rand()")
---	local err
---	x = xpcall(var.recall("x"),err)
---	print err
---	print(x)
-	
-
 end
