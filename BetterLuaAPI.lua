@@ -82,7 +82,7 @@ function drawRoundRect(x,y,width,height,radius)
 end
 
 function drawLinearGradient(r1,g1,b1,r2,g2,b2)
- 	-- not sure if it's a good idea
+ 	-- not sure if it's a good idea...
 end
 
 function on.paint(gc)
@@ -91,9 +91,9 @@ function on.paint(gc)
 	drawPoint(50,50)
 	drawCircle(50,50,20)
 	drawSquare(100,120,30)
-	--drawCenteredString("hello world")
-	--drawCenteredString("\n  Adriweb here \\o/")
-	drawRoundRect(200,160,50,50,30)
+	drawCenteredString("hello world")
+	drawCenteredString("\n  Adriweb here \\o/")
+	drawRoundRect(200,160,50,50,10)
 	verticalBar(20)
 	horizontalBar(40)
 	
