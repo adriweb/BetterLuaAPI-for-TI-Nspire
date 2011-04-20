@@ -72,30 +72,43 @@ function drawRoundRect(x,y,width,height,radius)
 	y = y-height/2 -- same for y coord
 	if radius > height/2 then radius = height/2 end -- avoid drawing cool but unexpected shapes. This will draw a circle (max radius)
 	platform.gc():drawLine(x + radius, y, x + width - (radius), y);
-    platform.gc():drawArc(x + width - (radius*2), y + height - (radius*2), radius*2, radius*2, 270, 90);
-    platform.gc():drawLine(x + width, y + radius, x + width, y + height - (radius));
-    platform.gc():drawArc(x + width - (radius*2), y, radius*2, radius*2,0,90);
-    platform.gc():drawLine(x + width - (radius), y + height, x + radius, y + height);
-    platform.gc():drawArc(x, y, radius*2, radius*2, 90, 90);
-    platform.gc():drawLine(x, y + height - (radius), x, y + radius);
-    platform.gc():drawArc(x, y + height - (radius*2), radius*2, radius*2, 180, 90);
+	platform.gc():drawArc(x + width - (radius*2), y + height - (radius*2), radius*2, radius*2, 270, 90);
+	platform.gc():drawLine(x + width, y + radius, x + width, y + height - (radius));
+	platform.gc():drawArc(x + width - (radius*2), y, radius*2, radius*2,0,90);
+	platform.gc():drawLine(x + width - (radius), y + height, x + radius, y + height);
+	platform.gc():drawArc(x, y, radius*2, radius*2, 90, 90);
+	platform.gc():drawLine(x, y + height - (radius), x, y + radius);
+	platform.gc():drawArc(x, y + height - (radius*2), radius*2, radius*2, 180, 90);
+end
+
+function fillRoundRect(x,y,width,height,radius)  -- renders badly when transparency (alpha) is not at maximum >< will re-code later
+	if radius > height/2 then radius = height/2 end -- avoid drawing cool but unexpected shapes. This will draw a circle (max radius)
+    platform.gc():fillPolygon({(x-width/2),(y-height/2+radius), (x+width/2),(y-height/2+radius), (x+width/2),(y+height/2-radius), (x-width/2),(y+height/2-radius), (x-width/2),(y-height/2+radius)})
+    platform.gc():fillPolygon({(x-width/2-radius+1),(y-height/2), (x+width/2-radius+1),(y-height/2), (x+width/2-radius+1),(y+height/2), (x-width/2+radius),(y+height/2), (x-width/2+radius),(y-height/2)})
+    x = x-width/2  -- let the center of the square be the origin (x coord)
+	y = y-height/2 -- same
+	platform.gc():fillArc(x + width - (radius*2), y + height - (radius*2), radius*2, radius*2, 1, -91);
+    platform.gc():fillArc(x + width - (radius*2), y, radius*2, radius*2,-2,91);
+    platform.gc():fillArc(x, y, radius*2, radius*2, 85, 95);
+    platform.gc():fillArc(x, y + height - (radius*2), radius*2, radius*2, 180, 95);
 end
 
 function drawLinearGradient(r1,g1,b1,r2,g2,b2)
  	-- not sure if it's a good idea...
 end
 
-function on.paint(gc)
 
+function on.paint(gc)
 	setColor("red")
 	drawPoint(50,50)
-	drawCircle(50,50,20)
-	drawSquare(100,120,30)
-	drawCenteredString("hello world")
-	drawCenteredString("\n  Adriweb here \\o/")
-	drawRoundRect(200,160,50,50,10)
+	drawCircle(150,50,20)
+	drawSquare(200,60,30)
+	drawCenteredString("hello world - Adriweb here \\o/")
+	drawRoundRect(200,160,51,51,10)
+	fillRoundRect(100,160,100,75,20)
 	verticalBar(20)
 	horizontalBar(40)
-	
-
 end
+
+
+---------------  End of BetterLuaAPI
