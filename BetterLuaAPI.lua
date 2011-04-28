@@ -2,6 +2,30 @@
 -- Adriweb 2011
 -- Put all this in your code and thank me ;)
 
+function test(arg)
+	if type(arg) == "boolean" then
+		if arg == true then
+			return 1
+		elseif arg == false then
+			return 0
+		end
+	else
+		print("error in test - not bool")
+	end
+end
+
+function screenRefresh()
+	platform.window:invalidate()
+end
+
+function pww()
+	return platform.window:width()
+end
+
+function pwh()
+	return platform.window:height()
+end
+
 function drawPoint(x, y)
 	platform.gc():setPen("thin", "smooth")
 	platform.gc():drawLine(x, y, x, y)
@@ -25,22 +49,15 @@ function setColor(theColor)
 	elseif theColor == "darkred" then platform.gc():setColorRGB(139,0,0)
 	elseif theColor == "fuchsia" then platform.gc():setColorRGB(255,0,255)
 	elseif theColor == "gold" then platform.gc():setColorRGB(255,215,0)
-	elseif theColor == "gray" then platform.gc():setColorRGB(127,127,127)
+	elseif theColor == "gray" or theColor == "grey" then platform.gc():setColorRGB(127,127,127)
 	elseif theColor == "green" then platform.gc():setColorRGB(0,128,0)
 	elseif theColor == "lightblue" then platform.gc():setColorRGB(173,216,230)
-	elseif theColor == "lightcyan" then platform.gc():setColorRGB(224,255,255)
 	elseif theColor == "lightgreen" then platform.gc():setColorRGB(144,238,144)
-	elseif theColor == "lightgrey" then platform.gc():setColorRGB(211,211,211)
-	elseif theColor == "lightpink" then platform.gc():setColorRGB(255,182,193)
-	elseif theColor == "lightseagreen" then platform.gc():setColorRGB(32,178,170)
-	elseif theColor == "lightyellow" then platform.gc():setColorRGB(255,255,224)
 	elseif theColor == "magenta" then platform.gc():setColorRGB(255,0,255)
 	elseif theColor == "maroon" then platform.gc():setColorRGB(128,0,0)
 	elseif theColor == "navyblue" then platform.gc():setColorRGB(159,175,223)
 	elseif theColor == "orange" then platform.gc():setColorRGB(255,165,0)
 	elseif theColor == "palegreen" then platform.gc():setColorRGB(152,251,152)
-	elseif theColor == "paleturquoise" then platform.gc():setColorRGB(175,238,238)
-	elseif theColor == "palevioletred" then platform.gc():setColorRGB(219,112,147)
 	elseif theColor == "pink" then platform.gc():setColorRGB(255,192,203)
 	elseif theColor == "purple" then platform.gc():setColorRGB(128,0,128)
 	elseif theColor == "red" then platform.gc():setColorRGB(255,0,0)
@@ -97,7 +114,6 @@ function drawLinearGradient(r1,g1,b1,r2,g2,b2)
  	-- not sure if it's a good idea...
 end
 
-
 function on.paint(gc)
 	setColor("red")
 	drawPoint(50,50)
@@ -108,6 +124,8 @@ function on.paint(gc)
 	fillRoundRect(100,160,100,75,20)
 	verticalBar(20)
 	horizontalBar(40)
+--	screenRefresh()
+--  fillScreen("color") - TODO
 end
 
 
