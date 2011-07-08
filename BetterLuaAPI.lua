@@ -1,6 +1,28 @@
 -- BetterLuaAPI for TI-Nspire
 -- Adriweb 2011
--- Put all this in your code and thank me ;)
+-- Put all this or some of this (be careful, though, some functions use each other) in your code and thank me ;)
+
+function copyTable(t)
+  local t2 = {}
+  for k,v in pairs(t) do
+    t2[k] = v
+  end
+  return t2
+end
+
+function deepcopy(t) -- This function recursively copies a table's contents, and ensures that metatables are preserved. That is, it will correctly clone a pure Lua object.
+	if type(t) ~= 'table' then return t end
+	local mt = getmetatable(t)
+	local res = {}
+	for k,v in pairs(t) do
+		if type(v) == 'table' then
+		v = deepcopy(v)
+		end
+	res[k] = v
+	end
+	setmetatable(res,mt)
+	return res
+end -- from http://snippets.luacode.org/snippets/Deep_copy_of_a_Lua_Table_2
 
 function test(arg)
 	if type(arg) == "boolean" then
@@ -27,8 +49,7 @@ function pwh()
 end
 
 function drawPoint(x, y)
-	platform.gc():setPen("thin", "smooth")
-	platform.gc():drawLine(x, y, x, y)
+	platform.gc():fillRect(x, y, 1, 1)
 end
 
 function drawCircle(x, y, diameter)
@@ -36,7 +57,7 @@ function drawCircle(x, y, diameter)
 end
 
 function drawCenteredString(str)
-	platform.gc():drawString(str, (platform.window:width() - platform.gc():getStringWidth(str)) / 2, platform.window:height() / 2, "middle")
+	platform.gc():drawString(str, (pww() - platform.gc():getStringWidth(str)) / 2, pwh() / 2, "middle")
 end
 
 function setColor(theColor)
@@ -98,16 +119,16 @@ function drawRoundRect(x,y,width,height,radius)
 	platform.gc():drawArc(x, y + height - (radius*2), radius*2, radius*2, 180, 90);
 end
 
-function fillRoundRect(x,y,width,height,radius)  -- renders badly when transparency (alpha) is not at maximum >< will re-code later
-	if radius > height/2 then radius = height/2 end -- avoid drawing cool but unexpected shapes. This will draw a circle (max radius)
-    platform.gc():fillPolygon({(x-width/2),(y-height/2+radius), (x+width/2),(y-height/2+radius), (x+width/2),(y+height/2-radius), (x-width/2),(y+height/2-radius), (x-width/2),(y-height/2+radius)})
-    platform.gc():fillPolygon({(x-width/2-radius+1),(y-height/2), (x+width/2-radius+1),(y-height/2), (x+width/2-radius+1),(y+height/2), (x-width/2+radius),(y+height/2), (x-width/2+radius),(y-height/2)})
-    x = x-width/2  -- let the center of the square be the origin (x coord)
-	y = y-height/2 -- same
-	platform.gc():fillArc(x + width - (radius*2), y + height - (radius*2), radius*2, radius*2, 1, -91);
-    platform.gc():fillArc(x + width - (radius*2), y, radius*2, radius*2,-2,91);
+function fillRoundRect(x,y,wd,ht,radius)  -- wd = width and ht = height -- renders badly when transparency (alpha) is not at maximum >< will re-code later
+	if radius > ht/2 then radius = ht/2 end -- avoid drawing cool but unexpected shapes. This will draw a circle (max radius)
+    platform.gc():fillPolygon({(x-wd/2),(y-ht/2+radius), (x+wd/2),(y-ht/2+radius), (x+wd/2),(y+ht/2-radius), (x-wd/2),(y+ht/2-radius), (x-wd/2),(y-ht/2+radius)})
+    platform.gc():fillPolygon({(x-wd/2-radius+1),(y-ht/2), (x+wd/2-radius+1),(y-ht/2), (x+wd/2-radius+1),(y+ht/2), (x-wd/2+radius),(y+ht/2), (x-wd/2+radius),(y-ht/2)})
+    x = x-wd/2  -- let the center of the square be the origin (x coord)
+	y = y-ht/2 -- same
+	platform.gc():fillArc(x + wd - (radius*2), y + ht - (radius*2), radius*2, radius*2, 1, -91);
+    platform.gc():fillArc(x + wd - (radius*2), y, radius*2, radius*2,-2,91);
     platform.gc():fillArc(x, y, radius*2, radius*2, 85, 95);
-    platform.gc():fillArc(x, y + height - (radius*2), radius*2, radius*2, 180, 95);
+    platform.gc():fillArc(x, y + ht - (radius*2), radius*2, radius*2, 180, 95);
 end
 
 function drawLinearGradient(r1,g1,b1,r2,g2,b2)
