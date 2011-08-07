@@ -4,6 +4,7 @@
 -- Put all this or some of this (be careful, though, some functions use each other) in your code and thank me ;)
 -- Remember to put "myGC = gc" in the  on.paint(gc)  function.
 
+screenRefresh = platform.window:invalidate()
 
 Color = {
 	["black"] = {0, 0, 0},
@@ -36,6 +37,8 @@ Color = {
 	["violet"] = {238,130,238},
 	["yellow"] = {255,255,0}
 }
+Color.mt = {__index = function () return {0,0,0} end}
+setmetatable(Color,Color.mt)
 
 function copyTable(t)
   local t2 = {}
@@ -71,10 +74,6 @@ function test(arg)
 	end
 end
 
-function screenRefresh()
-	platform.window:invalidate()
-end
-
 function pww()
 	return platform.window:width()
 end
@@ -96,7 +95,6 @@ function drawCenteredString(str)
 end
 
 function setColor(theColor)
-	myGC:setColorRGB(0,0,0) -- set black as default if nothing else valid is found
 	if type(theColor) == "string" then
 		theColor = string.lower(theColor)
 		if type(Color[theColor]) == "table" then myGC:setColorRGB(unpack(Color[theColor])) end
@@ -106,11 +104,11 @@ function setColor(theColor)
 end
 
 function verticalBar(x)
-	myGC:drawLine(x,1,x,platform.window:height())
+	myGC:fillRect(x,0,1,platform.window:height())
 end
 
 function horizontalBar(y)
-	myGC:drawLine(1,y,platform.window:width(),y)
+	myGC:fillRect(0,y,platform.window:width(),1)
 end
 
 function drawSquare(x,y,l)
