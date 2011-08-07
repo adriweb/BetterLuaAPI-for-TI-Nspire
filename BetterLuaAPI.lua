@@ -1,6 +1,7 @@
 -- BetterLuaAPI for TI-Nspire
--- Version 2.0 (Aug 6th 2011)
--- Adriweb 2011
+-- Version 2.1 (Aug 7th 2011)
+-- Adriweb 2011 -- Thanks to Jim Bauwens and Levak
+-- adrienbertrand@msn.com
 -- Put all this or some of this (be careful, though, some functions use each other) in your code and thank me ;)
 -- Remember to put "myGC = gc" in the  on.paint(gc)  function.
 
