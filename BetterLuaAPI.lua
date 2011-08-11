@@ -5,7 +5,6 @@
 -- Put all this or some of this (be careful, though, some functions use each other) in your code and thank me ;)
 -- Remember to put "myGC = gc" in the  on.paint(gc)  function.
 
-screenRefresh = platform.window:invalidate()
 
 Color = {
 	["black"] = {0, 0, 0},
@@ -64,15 +63,11 @@ function deepcopy(t) -- This function recursively copies a table's contents, and
 end -- from http://snippets.luacode.org/snippets/Deep_copy_of_a_Lua_Table_2
 
 function test(arg)
-	if type(arg) == "boolean" then
-		if arg == true then
-			return 1
-		elseif arg == false then
-			return 0
-		end
-	else
-		print("error in test - not bool")
-	end
+	return arg and 1 or 0
+end
+
+function screenRefresh()
+	return platform.window:invalidate()
 end
 
 function pww()
@@ -167,6 +162,5 @@ function on.paint(gc)
 --	screenRefresh()
 --  clearWindow({0, 0, 255}) - will fill the screen with the given color. Here, blue.
 end
-
 
 ---------------  End of BetterLuaAPI
