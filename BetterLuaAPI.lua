@@ -175,14 +175,15 @@ function on.paint(gc)
 	drawPoint(50,50)
 	drawCircle(150,50,20)
 	drawSquare(200,60,30)
-	local isCalcCX = device.hasColor and " a CX." or "not a CX."
-	drawXCenteredString("You are on the " .. device.theType .. ", and it's " .. isCalcCX, 50)
-	drawCenteredString("hello world - Centered String")
-	drawXCenteredString("X-Centered String  -  Adriweb here \\o/",0.75*pwh())
 	drawRoundRect(200,160,51,51,10)
 	fillRoundRect(100,160,100,75,20)
 	verticalBar(20)
 	horizontalBar(40)
+	setColor("black")
+	local isCalcCX = device.hasColor and "a CX." or "not a CX."
+	drawXCenteredString("You are on the " .. device.theType .. ", and it's " .. isCalcCX, 50)
+	drawCenteredString("hello world - Centered String")
+	drawXCenteredString("X-Centered String  -  Adriweb here \\o/",0.75*pwh())
 --	screenRefresh()
 --  clearWindow({0, 0, 255}) - will fill the screen with the given color. Here, blue.
 end
