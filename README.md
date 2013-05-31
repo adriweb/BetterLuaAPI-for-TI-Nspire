@@ -6,7 +6,7 @@
 ## How to use :
 Copy in your code the functions you want and start using them, that's all ! :-)
 Please also write in your code/readme something like "[a part of] BetterLuaAPI by Adriweb was used"...
-Since this is all written in Nspire-Lua, it requires you to run the OS any OS 3.x on your calculator. 
+Since this is all written in Nspire-Lua, it requires you to run any OS 3.x on your calculator. 
 The latest OS updates are available on [TI's Website](http://education.ti.com).
 
 ## New functions/things brought by BetterLuaAPI :
