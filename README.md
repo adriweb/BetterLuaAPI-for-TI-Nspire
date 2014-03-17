@@ -1,7 +1,8 @@
 # BetterLuaAPI for TI-Nspire.
 
 ### Made by Adrien "Adriweb" Bertrand.
-### Thanks to Jim Bauwens, John Powers, Levak
+
+#### Thanks to Jim Bauwens, John Powers, Levak, LDStudios
 
 ## How to use :
 Copy in your code the functions you want and start using them, that's all ! :-)
@@ -19,7 +20,10 @@ The latest OS updates are available on [TI's Website](http://education.ti.com).
 * __pww()__ same as _platform.window:width()_ but shorter
 * __pwh()__ same as _platform.window:height()_ but shorter
 * __gc:drawPoint(x, y)__ 
-* __gc:drawCircle(x, y, diameter)__ 
+* __gc:drawCircle(x, y, radius)__ 
+* __gc:fillCircle(x, y, radius)__ 
+* __gc:fillGradientCircle(x, y, radius, color1Tbl, color2Tbl)__ 
+* __gc:fillGradientRect(x, y, w, h, color1Tbl, color2, direction)__ (direction can be 1 or 2)
 * __gc:drawCenteredString(str)__ 
 * __gc:drawXCenteredString(str,y)__ 
 * __gc:setColor(theColor)__ (string or table of RGB)

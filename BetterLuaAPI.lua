@@ -1,7 +1,10 @@
+
 -- BetterLuaAPI for the TI-Nspire
--- Version 3.0 (May 30th 2013)
+-- Version 3.5 (March 17th 2014)
 -- Adriweb 2013
 -- http://tiplanet.org - http://inspired-lua.org
+
+-- Contributions by LDStudios
 
 -- Put all this or some of this (be careful, though, some functions use each other) in your code and thank me ;)
 
@@ -111,6 +114,10 @@ local function test(arg)
     return arg and 1 or 0
 end
 
+local function uCol(col)
+    return col[1], col[2], col[3]
+end
+
 local function screenRefresh() return platform.window:invalidate() end
 local function pww() return platform.window:width() end
 local function pwh() return platform.window:height() end
@@ -119,8 +126,44 @@ local function drawPoint(gc, x, y)
     gc:fillRect(x, y, 1, 1)
 end
 
-local function drawCircle(gc, x, y, diameter)
-    gc:drawArc(x - diameter / 2, y - diameter / 2, diameter, diameter, 0, 360)
+local function drawCircle(gc, x, y, r)
+    gc:drawArc(x-r, y-r, 2*r, 2*r, 0, 360)
+end
+
+local function fillCircle(gc, x, y, r)
+    gc:fillArc(x-r, y-r, 2*r, 2*r, 0, 360)
+end         
+
+local function fillGradientRect(gc,x,y,w,h,color1,color2,d)
+    local l = {w,x}
+    if d==2 then
+        l = {h,y}
+    end
+    for i=l[2],l[1]+l[2] do
+        gc:setColorRGB(color1[1],color1[2],color1[3])  
+        if d==1 then
+            gc:fillRect(i,y,1,h)  
+        else
+            gc:fillRect(x,i,w,1)         
+        end
+        color1={color1[1]+(color1[1]-color2[1])/(i-l[1]-l[2]),color1[2]+(color1[2]-color2[2])/(i-l[1]-l[2]),color1[3]+(color1[3]-color2[3])/(i-l[1]-l[2])}
+    end        
+end
+
+local function fillGradientCircle(gc,x,y,r,color1,color2)
+    for i=0,r do
+        gc:setColorRGB(color1[1],color1[2],color1[3])  
+        gc:setPen("thick")
+        drawCircle(gc,x,y,i)         
+        color1={color1[1]+(color2[1]-color1[1])/(r-i),color1[2]+(color2[2]-color1[2])/(r-i),color1[3]+(color2[3]-color1[3])/(r-i)}
+    end        
+end   
+
+local function drawThickCircle(gc,x,y,r,r2)
+    gc:setPen("thick")
+    for i=r,r2 do
+        drawCircle(gc,x,y,i)
+    end
 end
 
 local function drawCenteredString(gc, str)
@@ -134,9 +177,9 @@ end
 local function setColor(gc, theColor)
     if type(theColor) == "string" then
         theColor = theColor:lower()
-        if type(Color[theColor]) == "table" then gc:setColorRGB(unpack(Color[theColor])) end
+        if type(Color[theColor]) == "table" then gc:setColorRGB(uCol(Color[theColor])) end
     elseif type(theColor) == "table" then
-        gc:setColorRGB(unpack(theColor))
+        gc:setColorRGB(uCol(theColor))
     end
 end
 
@@ -190,6 +233,10 @@ end
 AddToGC("setColor", setColor)
 AddToGC("drawPoint", drawPoint)
 AddToGC("drawCircle", drawCircle)
+AddToGC("fillCircle", fillCircle)
+AddToGC("drawThickCircle", drawThickCircle)
+AddToGC("fillGradientCircle", fillGradientCircle)
+AddToGC("drawGradientRect", drawGradientRect)
 AddToGC("drawSquare", drawSquare)
 AddToGC("drawRoundRect", drawRoundRect)
 AddToGC("fillRoundRect", fillRoundRect)
@@ -206,7 +253,9 @@ AddToGC("clearWindow", clearWindow)
 function on.paint(gc)
     gc:setColor("red") -- is the same as gc:setColorRGB(unpack(Color["red"])) or setColor({255,0,0})
     gc:drawPoint(50, 50)
-    gc:drawCircle(150, 50, 20)
+    gc:drawCircle(150, 150, 20)
+    gc:fillGradientCircle(159,218,150,{255,0,0},{255,0,255})
+    gc:setColor("orange")
     gc:drawSquare(200, 60, 30)
     gc:drawRoundRect(200, 160, 51, 51, 10)
     gc:fillRoundRect(100, 160, 100, 75, 20)
